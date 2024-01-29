@@ -13,6 +13,9 @@ void ArraySortBubble(int array[], int size);
 void ArraySortShacker(int array[], int size);
 void ArraySortInsert(int array[], int size);
 
+void ArraySortQuick(int array[], int size);
+void ArraySortQuickRec(int array[], int begin, int end);
+
 int ArraySearchLine(int array[], int size, int key);
 int ArraySearchBinary(int array[], int size, int key);
 
@@ -26,7 +29,7 @@ int main()
 {
     srand(time(nullptr));
 
-    const int size{ 10 };
+    const int size{ 20 };
     int array[size];
 
     ArrayInit(array, size);
@@ -44,7 +47,10 @@ int main()
     //ArraySortSelect(array, size);
     //ArraySortBubble(array, size);
     //ArraySortShacker(array, size);
-    ArraySortInsert(array, size);
+    // ArraySortInsert(array, size);
+
+    ArraySortQuick(array, 0, size - 1);
+
     ArrayPrint(array, size);
 }
 
@@ -196,6 +202,36 @@ void ArraySortInsert(int array[], int size)
                 break;
         array[j] = temp;
     }
+}
+
+void ArraySortQuickRec(int array[], int begin, int end)
+{
+    int left{ begin };
+    int right{ end };
+    int pivot{ array[(begin + end) / 2] };
+    int temp;
+
+    do
+    {
+        while (array[left] < pivot) left++;
+        while (array[right] > pivot) right--;
+        if (left <= right)
+        {
+            temp = array[left];
+            array[left] = array[right];
+            array[right] = temp;
+            left++;
+            right--;
+        }
+    } while (left <= right);
+
+    if (begin < right) ArraySortQuickRec(array, begin, right);
+    if (left < end) ArraySortQuickRec(array, left, end);
+}
+
+void ArraySortQuick(int array[], int size)
+{
+    ArraySortQuickRec(array, 0, size - 1);
 }
 
 int ArraySearchLine(int array[], int size, int key)
