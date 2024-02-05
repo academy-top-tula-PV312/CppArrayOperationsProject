@@ -234,7 +234,7 @@ void ArraySortQuick(int array[], int size)
     ArraySortQuickRec(array, 0, size - 1);
 }
 
-int ArraySearchLine(int array[], int size, int key)
+int ArraySearchLine(int* array, int size, int key)
 {
     for (int i{}; i < size; i++)
         if (key == array[i])
@@ -261,6 +261,10 @@ int ArraySearchBinary(int array[], int size, int key)
     }
 
     return -1;
+}
+
+void ArrayShiftRight(int array[], int size, int steps)
+{
 }
 
 
